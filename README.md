@@ -1,4 +1,4 @@
-# Resume Parser
+# CV Parser Multiformats
 This library is forked from https://github.com/perminder-klair/resume-parser for updation purpose.
 
 A Simple NodeJs library to parse Resume / CV to JSON.
