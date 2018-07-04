@@ -1,4 +1,5 @@
 # Resume Parser
+This library is forked from https://github.com/perminder-klair/resume-parser for updation purpose.
 
 A Simple NodeJs library to parse Resume / CV to JSON.
 
@@ -6,12 +7,12 @@ This library parse through CVs / Resumes in the word (.doc or .docx) / RTF / TXT
 
 ## Installation
 
-`npm install resume-parser --save`
+`npm install cv-parser-multiformats --save`
 
 ## Usage
 
 ```
-const ResumeParser = require('resume-parser');
+const ResumeParser = require('cv-parser-multiformats');
 
 // From file to file
 ResumeParser
