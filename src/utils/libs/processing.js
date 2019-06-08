@@ -117,8 +117,8 @@ function cleanStr(str) {
 
 function PreparedFile(file, raw) {
   this.path = file;
-  // this.mime = mime.getType(file);
-  this.ext = mime.lookup(file);
+  this.mime = mime.getType(file);
+  this.ext = mime.getExtension(this.mime);
   this.raw = raw;
   this.name = path.basename(file);
 }
