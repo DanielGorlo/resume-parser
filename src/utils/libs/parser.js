@@ -74,7 +74,7 @@ function parse(PreparedFile, cbReturnResume) {
 
   for (var i = 0; i < rows.length; i++) {
     row = rows[i];
-
+    console.log('row ' + i + ': ' + row);
     // 2 parse profiles
     row = rows[i] = parseDictionaryProfiles(row, Resume);
     // 3 parse titles
