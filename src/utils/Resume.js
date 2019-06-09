@@ -7,7 +7,7 @@ module.exports = function() {
 function Resume() {
   // generic resume format
   this.parts = {};
-  this.keywords = [];
+  this.parts.keywords = [];
 }
 
 Resume.prototype.addKey = function(key, value) {
@@ -27,8 +27,8 @@ Resume.prototype.addKeyword = function(value) {
   value = value || '';
   value = value.trim();
 
-  if (this.keywords.indexOf(value)===-1) {
-    this.keywords.push(value);
+  if (this.parts['keywords'].indexOf(value)===-1) {
+    this.parts['keywords'].push(value);
   }
 };
 
