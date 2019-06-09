@@ -158,6 +158,7 @@ module.exports = {
     email: [/([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/],
     phone: [/([0-9.+()-]{8,})/],
   },
+  // Here we put all the standard searches
   keywords: ['angular', 'angularjs', 'angular.js',
     'react', 'reactjs', 'react.js',
     'reactnative', 'reactnativejs',
@@ -169,10 +170,19 @@ module.exports = {
     'java', 'kotlin', 'jvm', 'spring', 'hibernate',
     'ruby', 'rubyonrails', 'ror',
     'c', 'c++', 'cpp', 'matlab',
-    'image', 'vision', 'algorithm', 'algorithms', 'learning', 'ml', 'neural',
+    'image', 'vision', 'algorithm', 'algorithms', 'learning', 'ml', 'neural', 'ai',
     'architect', 'cto', 'cloud',
     'html', 'css',
-    'android', 'ios', 'objectivec', 'objective-c', 'swift'
+    'android', 'ios', 'objectivec', 'objective-c', 'swift',
+    'aws', 'gcp', 'azure',
+    'docker', 'kubernetes', 'chef', 'puppet', 'ansible',
+  ],
+  // Here we put all the full-match keywords. Typically - terms with spaces
+  full_match_keywords: ['angular js', 'react js', 'vue js',
+    'node js', 'c#', 'c sharp', '.net',
+    'ruby on rails', 'image processing', 'computer vision',
+    'machine learning', 'deep learning', 'artificial intelligence',
+    'objective c', 'chief technology officer'
   ]
 };
 

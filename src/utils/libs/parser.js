@@ -80,6 +80,7 @@ function parse(PreparedFile, cbReturnResume) {
     parseDictionaryTitles(Resume, rows, i);
     parseDictionaryInline(Resume, row);
     parseDictionaryKeywords(Resume, row);
+    parseDictionaryFullMatchKeywords(Resume, row);
   }
 
   if (_.isFunction(cbReturnResume)) {
@@ -166,7 +167,7 @@ function parseDictionaryRegular(data, Resume) {
 function parseDictionaryKeywords(Resume, data) {
   var keywordsDictionary = dictionary.keywords;
 
-  var cleanData = data.toLowerCase().replace('c#','csharp').replace('.net','dotnet').replace(/[^\w\s]/gi, '');
+  var cleanData = data.toLowerCase().replace(/[^\w\s]/gi, '');
   var words = cleanData.split(' ');
 
   _.forEach(keywordsDictionary, function(keyword) {
@@ -176,6 +177,19 @@ function parseDictionaryKeywords(Resume, data) {
         Resume.addKeyword(keyword);
       }
     })
+  });
+}
+
+function parseDictionaryFullMatchKeywords(Resume, data) {
+  var keywordsDictionary = dictionary.full_match_keywords;
+
+  var cleanData = data.toLowerCase();
+
+  _.forEach(keywordsDictionary, function(keyword) {
+    if (cleanData.indexOf(keyword) !== -1) {
+      console.log('adding keyword: ' + keyword);
+      Resume.addKeyword(keyword);
+    }
   });
 }
 
