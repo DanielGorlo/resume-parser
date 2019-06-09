@@ -158,6 +158,22 @@ module.exports = {
     email: [/([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/],
     phone: [/([0-9.+()-]{8,})/],
   },
+  keywords: ['angular', 'angularjs', 'angular.js',
+    'react', 'reactjs', 'react.js',
+    'reactnative', 'reactnativejs',
+    'vue', 'vuejs', 'vue.js',
+    'php', 'laravel',
+    'python', 'python2.6', 'python2.7', 'python3.6', 'python3.7', 'python2', 'python3',
+    'js', 'node', 'nodejs', 'node.js',
+    'dotnet', 'csharp',
+    'java', 'kotlin', 'jvm', 'spring', 'hibernate',
+    'ruby', 'rubyonrails', 'ror',
+    'c', 'c++', 'cpp', 'matlab',
+    'image', 'vision', 'algorithm', 'algorithms', 'learning', 'ml', 'neural',
+    'architect', 'cto', 'cloud',
+    'html', 'css',
+    'android', 'ios', 'objectivec', 'objective-c', 'swift'
+  ]
 };
 
 // helper method

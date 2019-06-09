@@ -4,7 +4,6 @@ const fileDir = process.cwd() + '/files/';
 ResumeParser
   .parseResumeFile(fileDir + 'matan_rahav.pdf', fileDir + 'compiled') //input file, output dir
   .then(file => {
-    console.log("Yay! " + file);
 
   })
   .catch(error => {

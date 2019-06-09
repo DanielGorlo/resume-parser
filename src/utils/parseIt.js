@@ -14,7 +14,7 @@ var parser = {
       }
       objParseBoy.parseFile(preppedFile, function(Resume) {
         logger.trace(
-          'I got Resume for ' + preppedFile.name + ', now saving...'
+          'Saving ' + preppedFile.name + '...'
         );
 
         objParseBoy.storeResume(preppedFile, Resume, savePath, function(err) {

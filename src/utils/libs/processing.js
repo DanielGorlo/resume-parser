@@ -69,7 +69,6 @@ function cleanTextByRows(data) {
  * @param cbAfterExtract
  */
 function extractTextFile(file, cbAfterExtract) {
-  logger.trace(file);
   textract.fromFileWithPath(file, { preserveLineBreaks: true }, function(
     err,
     data
