@@ -1,8 +1,10 @@
-var _ = require("underscore"),
-  resume = require("../Resume"),
-  fs = require("fs"),
-  dictionary = require("../../dictionary.js"),
-  logger = require("tracer").colorConsole();
+var _ = require("underscore");
+var sugar = require("sugar-date");
+
+var resume = require("../Resume");
+var fs = require("fs");
+var dictionary = require("../../dictionary.js");
+var logger = require("tracer").colorConsole();
 
 var profilesWatcher = {
   // for change value by reference
@@ -80,7 +82,7 @@ function parse(PreparedFile, cbReturnResume) {
     parseDictionaryTitles(Resume, rows, i);
     parseDictionaryInline(Resume, row);
     parseDictionaryKeywords(Resume, row);
-    parseDictionaryFullMatchKeywords(Resume, row);
+    parseDates(Resume, row);
   }
 
   if (_.isFunction(cbReturnResume)) {
@@ -164,10 +166,24 @@ function parseDictionaryRegular(data, Resume) {
   });
 }
 
+function parseDates(Resume, data) {
+  let cleanData = data.match(/([0-9]|\-|\s|(present)){6,}/gm);
+  if (!!cleanData) {
+    // cleanData = cleanData.replace(' - ', ' until ');
+
+    const xpMonths = sugar.Date.range('' + cleanData).months();
+    if (!!xpMonths) {
+
+      console.log(' clean data: ' + cleanData + " ||| xpMonths is " + xpMonths);
+      Resume.addDate(xpMonths);
+    }
+  }
+}
+
 function parseDictionaryKeywords(Resume, data) {
   var keywordsDictionary = dictionary.keywords;
 
-  var semiCleanData = data.toLowerCase()
+  var semiCleanData = data.toLowerCase();
   var cleanData = semiCleanData.replace(/[^\w\s]/gi, "");
 
   var words = cleanData.split(" ");

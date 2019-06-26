@@ -1,4 +1,4 @@
-var _ = require('underscore');
+var _ = require("underscore");
 
 module.exports = function() {
   return new Resume();
@@ -8,10 +8,11 @@ function Resume() {
   // generic resume format
   this.parts = {};
   this.parts.keywords = [];
+  this.parts.dates = [];
 }
 
 Resume.prototype.addKey = function(key, value) {
-  value = value || '';
+  value = value || "";
   value = value.trim();
   // reject falsy values
   if (value) {
@@ -23,12 +24,20 @@ Resume.prototype.addKey = function(key, value) {
   }
 };
 
+Resume.prototype.addDate = function(value) {
+  value = value || "";
+  // reject falsy values
+  if (this.parts["dates"].indexOf(value) === -1) {
+    value = this.parts["dates"].push(value);
+  }
+};
+
 Resume.prototype.addKeyword = function(value) {
-  value = value || '';
+  value = value || "";
   value = value.trim();
 
-  if (this.parts['keywords'].indexOf(value)===-1) {
-    this.parts['keywords'].push(value);
+  if (this.parts["keywords"].indexOf(value) === -1) {
+    this.parts["keywords"].push(value);
   }
 };
 
