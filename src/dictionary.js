@@ -1,64 +1,65 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var _ = require('underscore');
+var request = require("request");
+var cheerio = require("cheerio");
+var _ = require("underscore");
+var tech_keywords = require("./utils/tech-keywords");
 
 module.exports = {
   titles: {
-    objective: ['objective', 'objectives'],
-    summary: ['summary'],
-    technology: ['technology', 'technologies'],
-    experience: ['experience'],
-    education: ['education'],
-    skills: ['skills', 'Skills & Expertise', 'technology', 'technologies'],
-    languages: ['languages'],
-    courses: ['courses'],
-    projects: ['projects'],
-    links: ['links'],
-    contacts: ['contacts'],
-    positions: ['positions', 'position'],
+    objective: ["objective", "objectives"],
+    summary: ["summary"],
+    technology: ["technology", "technologies"],
+    experience: ["experience", "נסיון תעסוקתי", "נסיון", "תעסוקה"],
+    education: ["education", "השכלה", "לימודים"],
+    skills: ["skills", "Skills & Expertise", "technology", "technologies"],
+    languages: ["languages"],
+    courses: ["courses"],
+    projects: ["projects"],
+    links: ["links"],
+    contacts: ["contacts"],
+    positions: ["positions", "position"],
     profiles: [
-      'profiles',
-      'social connect',
-      'social-profiles',
-      'social profiles',
+      "profiles",
+      "social connect",
+      "social-profiles",
+      "social profiles"
     ],
-    awards: ['awards'],
-    honors: ['honors'],
-    additional: ['additional'],
-    certification: ['certification', 'certifications'],
-    interests: ['interests'],
+    awards: ["awards"],
+    honors: ["honors"],
+    additional: ["additional"],
+    certification: ["certification", "certifications"],
+    interests: ["interests"]
   },
   profiles: [
     [
-      'github.com',
+      "github.com",
       function(url, Resume, profilesWatcher) {
         download(url, function(data, err) {
           if (data) {
             var $ = cheerio.load(data),
-              fullName = $('.vcard-fullname').text(),
-              location = $('.octicon-location')
+              fullName = $(".vcard-fullname").text(),
+              location = $(".octicon-location")
                 .parent()
                 .text(),
-              mail = $('.octicon-mail')
+              mail = $(".octicon-mail")
                 .parent()
                 .text(),
-              link = $('.octicon-link')
+              link = $(".octicon-link")
                 .parent()
                 .text(),
-              clock = $('.octicon-clock')
+              clock = $(".octicon-clock")
                 .parent()
                 .text(),
-              company = $('.octicon-organization')
+              company = $(".octicon-organization")
                 .parent()
                 .text();
 
-            Resume.addObject('github', {
+            Resume.addObject("github", {
               name: fullName,
               location: location,
               email: mail,
               link: link,
               joined: clock,
-              company: company,
+              company: company
             });
           } else {
             return console.log(err);
@@ -66,10 +67,10 @@ module.exports = {
           //profilesInProgress--;
           profilesWatcher.inProgress--;
         });
-      },
+      }
     ],
     [
-      'linkedin.com',
+      "linkedin.com",
       function(url, Resume, profilesWatcher) {
         download(url, function(data, err) {
           if (data) {
@@ -77,43 +78,43 @@ module.exports = {
               linkedData = {
                 positions: {
                   past: [],
-                  current: {},
+                  current: {}
                 },
                 languages: [],
                 skills: [],
                 educations: [],
                 volunteering: [],
-                volunteeringOpportunities: [],
+                volunteeringOpportunities: []
               },
-              $pastPositions = $('.past-position'),
-              $currentPosition = $('.current-position'),
-              $languages = $('#languages-view .section-item > h4 > span'),
+              $pastPositions = $(".past-position"),
+              $currentPosition = $(".current-position"),
+              $languages = $("#languages-view .section-item > h4 > span"),
               $skills = $(
-                '.skills-section .skill-pill .endorse-item-name-text'
+                ".skills-section .skill-pill .endorse-item-name-text"
               ),
-              $educations = $('.education'),
-              $volunteeringListing = $('ul.volunteering-listing > li'),
+              $educations = $(".education"),
+              $volunteeringListing = $("ul.volunteering-listing > li"),
               $volunteeringOpportunities = $(
-                'ul.volunteering-opportunities > li'
+                "ul.volunteering-opportunities > li"
               );
 
-            linkedData.summary = $('#summary-item .summary').text();
-            linkedData.name = $('.full-name').text();
+            linkedData.summary = $("#summary-item .summary").text();
+            linkedData.name = $(".full-name").text();
             // current position
             linkedData.positions.current = {
-              title: $currentPosition.find('header > h4').text(),
-              company: $currentPosition.find('header > h5').text(),
-              description: $currentPosition.find('p.description').text(),
-              period: $currentPosition.find('.experience-date-locale').text(),
+              title: $currentPosition.find("header > h4").text(),
+              company: $currentPosition.find("header > h5").text(),
+              description: $currentPosition.find("p.description").text(),
+              period: $currentPosition.find(".experience-date-locale").text()
             };
             // past positions
             _.forEach($pastPositions, function(pastPosition) {
               var $pastPosition = $(pastPosition);
               linkedData.positions.past.push({
-                title: $pastPosition.find('header > h4').text(),
-                company: $pastPosition.find('header > h5').text(),
-                description: $pastPosition.find('p.description').text(),
-                period: $pastPosition.find('.experience-date-locale').text(),
+                title: $pastPosition.find("header > h4").text(),
+                company: $pastPosition.find("header > h5").text(),
+                description: $pastPosition.find("p.description").text(),
+                period: $pastPosition.find(".experience-date-locale").text()
               });
             });
             _.forEach($languages, function(language) {
@@ -125,9 +126,9 @@ module.exports = {
             _.forEach($educations, function(education) {
               var $education = $(education);
               linkedData.educations.push({
-                title: $education.find('header > h4').text(),
-                major: $education.find('header > h5').text(),
-                date: $education.find('.education-date').text(),
+                title: $education.find("header > h4").text(),
+                major: $education.find("header > h5").text(),
+                date: $education.find(".education-date").text()
               });
             });
             _.forEach($volunteeringListing, function(volunteering) {
@@ -137,52 +138,36 @@ module.exports = {
               linkedData.volunteeringOpportunities.push($(volunteering).text());
             });
 
-            Resume.addObject('linkedin', linkedData);
+            Resume.addObject("linkedin", linkedData);
           } else {
             return console.log(err);
           }
           profilesWatcher.inProgress--;
         });
-      },
+      }
     ],
-    'facebook.com',
-    'bitbucket.org',
-    'stackoverflow.com',
+    "facebook.com",
+    "bitbucket.org",
+    "stackoverflow.com"
   ],
   inline: {
     //address: 'address',
-    skype: 'skype',
+    skype: "skype"
   },
   regular: {
     name: [/([A-Z][a-z]*)(\s[A-Z][a-z]*)/],
     email: [/([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/],
-    phone: [/([0-9.+()-]{8,})/],
+    phone: [/([0-9.+()-]{8,})/]
   },
   // Here we put all the standard searches
-  keywords: ['angular', 'angularjs', 'angular.js',
-    'react', 'reactjs', 'react.js',
-    'reactnative', 'reactnativejs',
-    'vue', 'vuejs', 'vue.js',
-    'php', 'laravel',
-    'python', 'python2.6', 'python2.7', 'python3.6', 'python3.7', 'python2', 'python3',
-    'js', 'node', 'nodejs', 'node.js', 'javascript',
-    'dotnet', 'csharp',
-    'java', 'kotlin', 'jvm', 'spring', 'hibernate', 'scala',
-    'ruby', 'rubyonrails', 'ror',
-    'c', 'c++', 'cpp', 'matlab',
-    'image', 'vision', 'algorithm', 'algorithms', 'learning', 'ml', 'neural', 'ai',
-    'architect', 'cto', 'cloud',
-    'html', 'css',
-    'android', 'ios', 'objectivec', 'objective-c', 'swift',
-    'aws', 'gcp', 'azure',
-    'docker', 'kubernetes', 'chef', 'puppet', 'ansible',
-  ],
-  // Here we put all the full-match keywords. Typically - terms with spaces
-  full_match_keywords: ['angular js', 'react js', 'vue js',
-    'node js', 'c#', 'c sharp', '.net',
-    'ruby on rails', 'image processing', 'computer vision',
-    'machine learning', 'deep learning', 'artificial intelligence',
-    'objective c', 'chief technology officer'
+  keywords: [
+    tech_keywords.algo
+      .concat(tech_keywords.frontend)
+      .concat(tech_keywords.backend)
+      .concat(tech_keywords.devops)
+      .concat(tech_keywords.embedded)
+      .concat(tech_keywords.mobile)
+      .concat(tech_keywords.games)
   ]
 };
 

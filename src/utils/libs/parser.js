@@ -167,29 +167,25 @@ function parseDictionaryRegular(data, Resume) {
 function parseDictionaryKeywords(Resume, data) {
   var keywordsDictionary = dictionary.keywords;
 
-  var cleanData = data.toLowerCase().replace(/[^\w\s]/gi, '');
-  var words = cleanData.split(' ');
+  var semiCleanData = data.toLowerCase()
+  var cleanData = semiCleanData.replace(/[^\w\s]/gi, "");
+
+  var words = cleanData.split(" ");
 
   _.forEach(keywordsDictionary, function(keyword) {
-    _.forEach(words, word => {
-      if (word === keyword) {
-        console.log('adding keyword: ' + keyword);
+    if (keyword.includes(" ") || keyword.includes("#") || keyword.includes(".") || keyword.includes("-"))
+      if (semiCleanData.indexOf(keyword) !== -1) {
+        console.log("adding full keyword: " + keyword);
         Resume.addKeyword(keyword);
       }
-    })
-  });
-}
-
-function parseDictionaryFullMatchKeywords(Resume, data) {
-  var keywordsDictionary = dictionary.full_match_keywords;
-
-  var cleanData = data.toLowerCase();
-
-  _.forEach(keywordsDictionary, function(keyword) {
-    if (cleanData.indexOf(keyword) !== -1) {
-      console.log('adding keyword: ' + keyword);
-      Resume.addKeyword(keyword);
-    }
+      else {
+        _.forEach(words, word => {
+          if (word === keyword) {
+            console.log("adding keyword: " + keyword);
+            Resume.addKeyword(keyword);
+          }
+        });
+      }
   });
 }
 

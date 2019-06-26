@@ -1,0 +1,92 @@
+{
+  "frontend": [
+    "angular",
+    "angularjs",
+    "angular.js",
+    "react",
+    "reactjs",
+    "react.js",
+    "vue",
+    "vuejs",
+    "vue.js",
+    "angular js",
+    "react js",
+    "vue js"
+  ],
+  "backend": [
+    "php",
+    "laravel",
+    "python",
+    "python2.6",
+    "python2.7",
+    "python3.6",
+    "python3.7",
+    "python2",
+    "python3",
+    "nodejs",
+    "node.js",
+    "dotnet",
+    "csharp",
+    "java",
+    "kotlin",
+    "jvm",
+    "spring",
+    "hibernate",
+    "scala",
+    "ruby",
+    "rubyonrails",
+    "ror",
+    "node js",
+    "ruby on rails",
+    "c#",
+    "c sharp",
+    ".net"
+  ],
+  "devops": [
+    "cloud",
+    "aws",
+    "gcp",
+    "azure",
+    "docker",
+    "kubernetes",
+    "chef",
+    "puppet",
+    "ansible"
+  ],
+  "mobile": [
+    "reactnative",
+    "reactnativejs",
+    "objective c",
+    "android",
+    "ios",
+    "objectivec",
+    "objective-c",
+    "swift",
+    "react native"
+  ],
+  "embedded": [
+    "c",
+    "c++",
+    "cpp",
+    "matlab"
+  ],
+  "algo": [
+    "machine learning",
+    "deep learning",
+    "artificial intelligence",
+    "image",
+    "vision",
+    "algorithm",
+    "algorithms",
+    "learning",
+    "ml",
+    "neural",
+    "ai",
+    "image processing",
+    "computer vision"
+  ],
+  "games": [
+    "unity",
+    "unreal"
+  ]
+}
