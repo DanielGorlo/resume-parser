@@ -74,15 +74,23 @@ function parse(PreparedFile, cbReturnResume) {
   // 1 parse regulars
   parseDictionaryRegular(rawFileData, Resume);
 
+  let currentSection;
   for (var i = 0; i < rows.length; i++) {
     row = rows[i];
     // 2 parse profiles
     row = rows[i] = parseDictionaryProfiles(row, Resume);
     // 3 parse titles
-    parseDictionaryTitles(Resume, rows, i);
+    const tempCurrentSection = parseDictionaryTitles(Resume, rows, i);
+    if (tempCurrentSection) {
+      currentSection = tempCurrentSection;
+    }
+
     parseDictionaryInline(Resume, row);
     parseDictionaryKeywords(Resume, row);
-    parseDates(Resume, row);
+
+    if (currentSection === 'experience') {
+      parseDates(Resume, row);
+    }
   }
 
   if (_.isFunction(cbReturnResume)) {
@@ -167,15 +175,49 @@ function parseDictionaryRegular(data, Resume) {
 }
 
 function parseDates(Resume, data) {
-  let cleanData = data.match(/([0-9]|\-|\s|(present)){6,}/gm);
+  let cleanData = data.match(/([0-9\/]{2,6}|present)/gmi);
+  let isPhoneNumber = false;
+
   if (!!cleanData) {
-    // cleanData = cleanData.replace(' - ', ' until ');
+    // console.log('XP: Clean data IN: ' + cleanData);
 
-    const xpMonths = sugar.Date.range('' + cleanData).months();
-    if (!!xpMonths) {
+    // Clean if it's a phone number
+    cleanData.forEach(extractedDate => {
+      if (!!extractedDate.match(/([0-9]{5,})/gmi)) {
+        // console.log('XP: Found phone number: ' + extractedDate);
+        isPhoneNumber = true;
+      }
+    });
 
-      console.log(' clean data: ' + cleanData + " ||| xpMonths is " + xpMonths);
-      Resume.addDate(xpMonths);
+    if (cleanData.length > 1 && !isPhoneNumber) {
+      // Clean if there are more matches than need to be
+      if (cleanData.length > 2) {
+        // console.log('XP: Found bigger match groups: ' + cleanData);
+        cleanData = cleanData.slice(0,2);
+      }
+
+      // console.log('XP: Clean data OUT: ' + cleanData);
+
+      // Turn present into today's date
+      cleanData = cleanData.map(date => {
+        if (('' + date).toLowerCase() === 'present') {
+          date = new Date().getFullYear();
+        }
+        // Turn months representations into years
+        if (('' + date).includes('/')) {
+          date = Math.floor(new Date().getFullYear() / 100) + date.split('/').slice(-1)[0]
+        }
+        return date;
+      });
+
+      // Calculate total years
+      const past = Math.min(...cleanData);
+      const future = Math.max(...cleanData);
+      const totalYearsOfXp = future - past + 1;
+      console.log(cleanData);
+      console.log('Total years of experience: ' + totalYearsOfXp);
+
+      Resume.addXP(totalYearsOfXp);
     }
   }
 }
@@ -219,6 +261,7 @@ function parseDictionaryTitles(Resume, rows, rowIdx) {
     isRuleFound,
     result;
 
+  let foundKey;
   _.forEach(dictionary.titles, function(expressions, key) {
     expressions = expressions || [];
     // means, that titled row is less than 5 words
@@ -238,11 +281,13 @@ function parseDictionaryTitles(Resume, rows, rowIdx) {
 
           if (result) {
             Resume.addKey(key, result[1]);
+            foundKey = key;
           }
         }
       });
     }
   });
+  return foundKey;
 }
 
 /**

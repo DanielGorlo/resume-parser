@@ -8,7 +8,7 @@ function Resume() {
   // generic resume format
   this.parts = {};
   this.parts.keywords = [];
-  this.parts.dates = [];
+  this.parts.totalXP = 0;
 }
 
 Resume.prototype.addKey = function(key, value) {
@@ -24,12 +24,9 @@ Resume.prototype.addKey = function(key, value) {
   }
 };
 
-Resume.prototype.addDate = function(value) {
-  value = value || "";
-  // reject falsy values
-  if (this.parts["dates"].indexOf(value) === -1) {
-    value = this.parts["dates"].push(value);
-  }
+Resume.prototype.addXP = function(value) {
+  value = parseInt(value);
+  this.parts.totalXP = this.parts.totalXP + value;
 };
 
 Resume.prototype.addKeyword = function(value) {
