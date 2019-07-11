@@ -8,7 +8,7 @@ function Resume() {
   // generic resume format
   this.parts = {};
   this.parts.keywords = [];
-  this.parts.totalXP = 0;
+  this.parts.totalExperience = 0;
 }
 
 Resume.prototype.addKey = function(key, value) {
@@ -26,7 +26,7 @@ Resume.prototype.addKey = function(key, value) {
 
 Resume.prototype.addXP = function(value) {
   value = parseInt(value);
-  this.parts.totalXP = this.parts.totalXP + value;
+  this.parts.totalExperience = this.parts.totalExperience + value;
 };
 
 Resume.prototype.addKeyword = function(value) {

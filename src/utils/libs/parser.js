@@ -213,7 +213,7 @@ function parseDates(Resume, data) {
       // Calculate total years
       const past = Math.min(...cleanData);
       const future = Math.max(...cleanData);
-      const totalYearsOfXp = future - past + 1;
+      const totalYearsOfXp = future - past;
       console.log(cleanData);
       console.log('Total years of experience: ' + totalYearsOfXp);
 
