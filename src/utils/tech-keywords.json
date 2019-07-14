@@ -6,6 +6,7 @@
     "react",
     "reactjs",
     "react.js",
+    "typescript",
     "vue",
     "vuejs",
     "vue.js",
@@ -25,6 +26,7 @@
     "python3",
     "nodejs",
     "node.js",
+    "typescript",
     "dotnet",
     "csharp",
     "java",
@@ -88,5 +90,9 @@
   "games": [
     "unity",
     "unreal"
+  ],
+  "qa": [
+    "qa",
+    "automation"
   ]
 }
