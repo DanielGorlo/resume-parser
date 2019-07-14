@@ -69,86 +69,86 @@ module.exports = {
         });
       }
     ],
-    [
-      "linkedin.com",
-      function(url, Resume, profilesWatcher) {
-        download(url, function(data, err) {
-          if (data) {
-            var $ = cheerio.load(data),
-              linkedData = {
-                positions: {
-                  past: [],
-                  current: {}
-                },
-                languages: [],
-                skills: [],
-                educations: [],
-                volunteering: [],
-                volunteeringOpportunities: []
-              },
-              $pastPositions = $(".past-position"),
-              $currentPosition = $(".current-position"),
-              $languages = $("#languages-view .section-item > h4 > span"),
-              $skills = $(
-                ".skills-section .skill-pill .endorse-item-name-text"
-              ),
-              $educations = $(".education"),
-              $volunteeringListing = $("ul.volunteering-listing > li"),
-              $volunteeringOpportunities = $(
-                "ul.volunteering-opportunities > li"
-              );
-
-            linkedData.summary = $("#summary-item .summary").text();
-            linkedData.name = $(".full-name").text();
-            // current position
-            linkedData.positions.current = {
-              title: $currentPosition.find("header > h4").text(),
-              company: $currentPosition.find("header > h5").text(),
-              description: $currentPosition.find("p.description").text(),
-              period: $currentPosition.find(".experience-date-locale").text()
-            };
-            // past positions
-            _.forEach($pastPositions, function(pastPosition) {
-              var $pastPosition = $(pastPosition);
-              linkedData.positions.past.push({
-                title: $pastPosition.find("header > h4").text(),
-                company: $pastPosition.find("header > h5").text(),
-                description: $pastPosition.find("p.description").text(),
-                period: $pastPosition.find(".experience-date-locale").text()
-              });
-            });
-            _.forEach($languages, function(language) {
-              linkedData.languages.push($(language).text());
-            });
-            _.forEach($skills, function(skill) {
-              linkedData.skills.push($(skill).text());
-            });
-            _.forEach($educations, function(education) {
-              var $education = $(education);
-              linkedData.educations.push({
-                title: $education.find("header > h4").text(),
-                major: $education.find("header > h5").text(),
-                date: $education.find(".education-date").text()
-              });
-            });
-            _.forEach($volunteeringListing, function(volunteering) {
-              linkedData.volunteering.push($(volunteering).text());
-            });
-            _.forEach($volunteeringOpportunities, function(volunteering) {
-              linkedData.volunteeringOpportunities.push($(volunteering).text());
-            });
-
-            Resume.addObject("linkedin", linkedData);
-          } else {
-            return console.log(err);
-          }
-          profilesWatcher.inProgress--;
-        });
-      }
-    ],
-    "facebook.com",
-    "bitbucket.org",
-    "stackoverflow.com"
+    // [
+    //   "linkedin.com",
+    //   function(url, Resume, profilesWatcher) {
+    //     download(url, function(data, err) {
+    //       if (data) {
+    //         var $ = cheerio.load(data),
+    //           linkedData = {
+    //             positions: {
+    //               past: [],
+    //               current: {}
+    //             },
+    //             languages: [],
+    //             skills: [],
+    //             educations: [],
+    //             volunteering: [],
+    //             volunteeringOpportunities: []
+    //           },
+    //           $pastPositions = $(".past-position"),
+    //           $currentPosition = $(".current-position"),
+    //           $languages = $("#languages-view .section-item > h4 > span"),
+    //           $skills = $(
+    //             ".skills-section .skill-pill .endorse-item-name-text"
+    //           ),
+    //           $educations = $(".education"),
+    //           $volunteeringListing = $("ul.volunteering-listing > li"),
+    //           $volunteeringOpportunities = $(
+    //             "ul.volunteering-opportunities > li"
+    //           );
+    //
+    //         linkedData.summary = $("#summary-item .summary").text();
+    //         linkedData.name = $(".full-name").text();
+    //         // current position
+    //         linkedData.positions.current = {
+    //           title: $currentPosition.find("header > h4").text(),
+    //           company: $currentPosition.find("header > h5").text(),
+    //           description: $currentPosition.find("p.description").text(),
+    //           period: $currentPosition.find(".experience-date-locale").text()
+    //         };
+    //         // past positions
+    //         _.forEach($pastPositions, function(pastPosition) {
+    //           var $pastPosition = $(pastPosition);
+    //           linkedData.positions.past.push({
+    //             title: $pastPosition.find("header > h4").text(),
+    //             company: $pastPosition.find("header > h5").text(),
+    //             description: $pastPosition.find("p.description").text(),
+    //             period: $pastPosition.find(".experience-date-locale").text()
+    //           });
+    //         });
+    //         _.forEach($languages, function(language) {
+    //           linkedData.languages.push($(language).text());
+    //         });
+    //         _.forEach($skills, function(skill) {
+    //           linkedData.skills.push($(skill).text());
+    //         });
+    //         _.forEach($educations, function(education) {
+    //           var $education = $(education);
+    //           linkedData.educations.push({
+    //             title: $education.find("header > h4").text(),
+    //             major: $education.find("header > h5").text(),
+    //             date: $education.find(".education-date").text()
+    //           });
+    //         });
+    //         _.forEach($volunteeringListing, function(volunteering) {
+    //           linkedData.volunteering.push($(volunteering).text());
+    //         });
+    //         _.forEach($volunteeringOpportunities, function(volunteering) {
+    //           linkedData.volunteeringOpportunities.push($(volunteering).text());
+    //         });
+    //
+    //         Resume.addObject("linkedin", linkedData);
+    //       } else {
+    //         return console.log(err);
+    //       }
+    //       profilesWatcher.inProgress--;
+    //     });
+    //   }
+    // ],
+    // "facebook.com",
+    // "bitbucket.org",
+    // "stackoverflow.com"
   ],
   inline: {
     //address: 'address',
@@ -168,6 +168,7 @@ module.exports = {
       .concat(tech_keywords.embedded)
       .concat(tech_keywords.mobile)
       .concat(tech_keywords.games)
+      .concat(tech_keywords.qa)
   ]
 };
 
