@@ -223,27 +223,28 @@ function parseDates(Resume, data) {
 }
 
 function parseDictionaryKeywords(Resume, data) {
-  var keywordsDictionary = dictionary.keywords;
+  const keywordsDictionary = dictionary.keywords;
 
-  var semiCleanData = data.toLowerCase();
-  var cleanData = semiCleanData.replace(/[^\w\s]/gi, "");
+  const semiCleanData = data.toLowerCase();
+  const cleanData = semiCleanData.replace(/[^\w\s]/gi, "");
 
-  var words = cleanData.split(" ");
+  const words = cleanData.split(" ");
 
-  _.forEach(keywordsDictionary, function(keyword) {
-    if (keyword.includes(" ") || keyword.includes("#") || keyword.includes(".") || keyword.includes("-"))
-      if (semiCleanData.indexOf(keyword) !== -1) {
-        console.log("adding full keyword: " + keyword);
-        Resume.addKeyword(keyword);
+  _.forEach(keywordsDictionary, keywordSection => {
+    keywordSection.forEach( (keyword) => {
+      if (keyword.includes(" ") || keyword.includes("#") || keyword.includes(".") || keyword.includes("-")) {
+        if (semiCleanData.indexOf(keyword) !== -1) {
+          Resume.addKeyword(keyword);
+        }
+        else {
+          _.forEach(words, word => {
+            if (word === keyword) {
+              Resume.addKeyword(keyword);
+            }
+          });
+        }
       }
-      else {
-        _.forEach(words, word => {
-          if (word === keyword) {
-            console.log("adding keyword: " + keyword);
-            Resume.addKeyword(keyword);
-          }
-        });
-      }
+    });
   });
 }
 
