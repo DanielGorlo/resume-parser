@@ -8,6 +8,7 @@ module.exports = {
     objective: ["objective", "objectives"],
     summary: ["summary"],
     technology: ["technology", "technologies"],
+    military: ["military", "military service", "militery service", "militery", "צבא", "שירות צבאי"],
     experience: ["experience", "נסיון תעסוקתי","ניסיון", "נסיון", "תעסוקה", "work"],
     education: ["education", "השכלה", "לימודים"],
     skills: ["skills", "Skills & Expertise", "technology", "technologies"],

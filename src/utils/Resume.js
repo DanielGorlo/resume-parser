@@ -9,6 +9,7 @@ function Resume() {
   this.parts = {};
   this.parts.keywords = [];
   this.parts.totalExperience = 0;
+  this.parts.isNonEnglish = false;
 }
 
 Resume.prototype.addKey = function(key, value) {
@@ -22,6 +23,10 @@ Resume.prototype.addKey = function(key, value) {
 
     this.parts[key] = value;
   }
+};
+
+Resume.prototype.setNonEnglish = function(value) {
+  this.parts.isNonEnglish = this.parts.isNonEnglish || value;
 };
 
 Resume.prototype.addXP = function(value) {

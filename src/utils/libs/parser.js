@@ -91,6 +91,7 @@ function parse(PreparedFile, cbReturnResume) {
     if (currentSection === 'experience') {
       parseDates(Resume, row);
     }
+    parseNonEnglish(Resume, row);
   }
 
   if (_.isFunction(cbReturnResume)) {
@@ -172,6 +173,13 @@ function parseDictionaryRegular(data, Resume) {
       }
     });
   });
+}
+
+function parseNonEnglish(Resume, data) {
+  let nonEnglishMatch = data.match(/[^\x00-\x7F]+/);
+  if (!!nonEnglishMatch) {
+    Resume.setNonEnglish(true);
+  }
 }
 
 function parseDates(Resume, data) {
