@@ -34,40 +34,40 @@ module.exports = {
     [
       "github.com",
       function(url, Resume, profilesWatcher) {
-        download(url, function(data, err) {
-          if (data) {
-            var $ = cheerio.load(data),
-              fullName = $(".vcard-fullname").text(),
-              location = $(".octicon-location")
-                .parent()
-                .text(),
-              mail = $(".octicon-mail")
-                .parent()
-                .text(),
-              link = $(".octicon-link")
-                .parent()
-                .text(),
-              clock = $(".octicon-clock")
-                .parent()
-                .text(),
-              company = $(".octicon-organization")
-                .parent()
-                .text();
-
-            Resume.addObject("github", {
-              name: fullName,
-              location: location,
-              email: mail,
-              link: link,
-              joined: clock,
-              company: company
-            });
-          } else {
-            return console.log(err);
-          }
-          //profilesInProgress--;
-          profilesWatcher.inProgress--;
-        });
+        // download(url, function(data, err) {
+        //   if (data) {
+        //     var $ = cheerio.load(data),
+        //       fullName = $(".vcard-fullname").text(),
+        //       location = $(".octicon-location")
+        //         .parent()
+        //         .text(),
+        //       mail = $(".octicon-mail")
+        //         .parent()
+        //         .text(),
+        //       link = $(".octicon-link")
+        //         .parent()
+        //         .text(),
+        //       clock = $(".octicon-clock")
+        //         .parent()
+        //         .text(),
+        //       company = $(".octicon-organization")
+        //         .parent()
+        //         .text();
+        //
+        //     Resume.addObject("github", {
+        //       name: fullName,
+        //       location: location,
+        //       email: mail,
+        //       link: link,
+        //       joined: clock,
+        //       company: company
+        //     });
+        //   } else {
+        //     return console.log(err);
+        //   }
+        //   //profilesInProgress--;
+        //   profilesWatcher.inProgress--;
+        // });
       }
     ],
     // [
