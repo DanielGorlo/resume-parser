@@ -176,7 +176,7 @@ function parseDictionaryRegular(data, Resume) {
 }
 
 function parseNonEnglish(Resume, data) {
-  let nonEnglishMatch = data.match(/[^\x00-\x7F]+/);
+  let nonEnglishMatch = data.match(/\u0590-\u05FF/);
   if (!!nonEnglishMatch) {
     Resume.setNonEnglish(true);
   }
