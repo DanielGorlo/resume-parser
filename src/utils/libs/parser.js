@@ -88,7 +88,7 @@ function parse(PreparedFile, cbReturnResume) {
     parseDictionaryInline(Resume, row);
     parseDictionaryKeywords(Resume, row);
 
-    if (currentSection === 'experience') {
+    if (currentSection === "experience") {
       parseDates(Resume, row);
     }
     parseNonEnglish(Resume, row);
@@ -164,7 +164,7 @@ function parseDictionaryInline(Resume, row) {
 function parseDictionaryRegular(data, Resume) {
   var regularDictionary = dictionary.regular,
     find;
-
+  // console.log('data = ' + data);
   _.forEach(regularDictionary, function(expressions, key) {
     _.forEach(expressions, function(expression) {
       find = new RegExp(expression).exec(data);
@@ -201,19 +201,19 @@ function parseDates(Resume, data) {
       // Clean if there are more matches than need to be
       if (cleanData.length > 2) {
         // console.log('XP: Found bigger match groups: ' + cleanData);
-        cleanData = cleanData.slice(0,2);
+        cleanData = cleanData.slice(0, 2);
       }
 
       // console.log('XP: Clean data OUT: ' + cleanData);
 
       // Turn present into today's date
       cleanData = cleanData.map(date => {
-        if (('' + date).toLowerCase() === 'present') {
+        if (("" + date).toLowerCase() === "present") {
           date = new Date().getFullYear();
         }
         // Turn months representations into years
-        if (('' + date).includes('/')) {
-          date = Math.floor(new Date().getFullYear() / 100) + date.split('/').slice(-1)[0]
+        if (("" + date).includes("/")) {
+          date = Math.floor(new Date().getFullYear() / 100) + date.split("/").slice(-1)[0];
         }
         return date;
       });
@@ -223,7 +223,7 @@ function parseDates(Resume, data) {
       const future = Math.max(...cleanData);
       const totalYearsOfXp = future - past;
       console.log(cleanData);
-      console.log('Total years of experience: ' + totalYearsOfXp);
+      console.log("Total years of experience: " + totalYearsOfXp);
 
       Resume.addXP(totalYearsOfXp);
     }
@@ -239,7 +239,7 @@ function parseDictionaryKeywords(Resume, data) {
   const words = cleanData.split(" ");
 
   _.forEach(keywordsDictionary, keywordSection => {
-    const keywordsArray = keywordSection.split(',');
+    const keywordsArray = keywordSection.split(",");
     keywordsArray.forEach((predefinedKeyword) => {
       if (predefinedKeyword.includes(" ") || predefinedKeyword.includes("#") || predefinedKeyword.includes(".") || predefinedKeyword.includes("-")) {
         if (semiCleanData.indexOf(predefinedKeyword) !== -1) {
