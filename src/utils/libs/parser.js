@@ -239,18 +239,19 @@ function parseDictionaryKeywords(Resume, data) {
   const words = cleanData.split(" ");
 
   _.forEach(keywordsDictionary, keywordSection => {
-    keywordSection.forEach( (keyword) => {
-      if (keyword.includes(" ") || keyword.includes("#") || keyword.includes(".") || keyword.includes("-")) {
-        if (semiCleanData.indexOf(keyword) !== -1) {
-          Resume.addKeyword(keyword);
+    const keywordsArray = keywordSection.split(',');
+    keywordsArray.forEach((predefinedKeyword) => {
+      if (predefinedKeyword.includes(" ") || predefinedKeyword.includes("#") || predefinedKeyword.includes(".") || predefinedKeyword.includes("-")) {
+        if (semiCleanData.indexOf(predefinedKeyword) !== -1) {
+          Resume.addKeyword(predefinedKeyword);
         }
-        else {
-          _.forEach(words, word => {
-            if (word === keyword) {
-              Resume.addKeyword(keyword);
-            }
-          });
-        }
+      }
+      else {
+        _.forEach(words, word => {
+          if (word === predefinedKeyword) {
+            Resume.addKeyword(predefinedKeyword);
+          }
+        });
       }
     });
   });

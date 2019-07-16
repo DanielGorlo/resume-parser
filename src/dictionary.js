@@ -161,7 +161,7 @@ module.exports = {
     phone: [/([0-9.+()-]{8,})/]
   },
   // Here we put all the standard searches
-  keywords: [
+  keywords:
     tech_keywords.algo
       .concat(tech_keywords.frontend)
       .concat(tech_keywords.backend)
@@ -170,7 +170,6 @@ module.exports = {
       .concat(tech_keywords.mobile)
       .concat(tech_keywords.games)
       .concat(tech_keywords.qa)
-  ]
 };
 
 // helper method
