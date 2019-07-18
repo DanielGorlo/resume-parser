@@ -170,6 +170,8 @@ module.exports = {
       .concat(tech_keywords.mobile)
       .concat(tech_keywords.games)
       .concat(tech_keywords.qa)
+      .concat(tech_keywords.bi)
+      .concat(tech_keywords.cyber)
 };
 
 // helper method

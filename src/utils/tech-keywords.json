@@ -91,5 +91,21 @@
   "qa": [
     "qa",
     "automation"
+  ],
+  "bi": [
+    "bi",
+    "qlikview",
+    "r",
+    "tableau",
+    "power pivot"
+  ],
+  "cyber": [
+    "malware",
+    "security",
+    "threat",
+    "penetration",
+    "pen test",
+    "pen testing",
+    "cyber"
   ]
 }
